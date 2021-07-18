@@ -28,7 +28,7 @@ async def on_ready():
 
 @bot.command()
 async def status(ctx):
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
         url = 'https://axie.zone:3000/server_status'
         async with session.get(url) as resp:
             data = await resp.json(content_type=None)
