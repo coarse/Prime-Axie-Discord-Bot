@@ -33,9 +33,9 @@ async def status(ctx):
         async with session.get(url) as resp:
             data = await resp.json(content_type=None)
 
-            maintenance = data.get('status_maintenance', -1)
-            login = data.get('status_login', -1)
-            battles = data.get('status_battles', -1)
+            maintenance = data.get('status_maintenance', None)
+            login = data.get('status_login', None)
+            battles = data.get('status_battles', None)
 
             maintenance_msg = 'Ongoing maintenance' if maintenance else 'No maintenance'
             login_msg = 'Online' if login else 'Status unknown'
