@@ -38,10 +38,10 @@ async def status(ctx):
             battles = data.get('status_battles', None)
 
             maintenance_msg = 'Ongoing maintenance' if maintenance else 'No maintenance'
-            login_msg = 'Online' if login else 'Status unknown'
+            login_msg = 'Online' if not login else 'Status unknown'
             battles_msg = 'Online' if battles > 0 else 'Status unknown'
 
-            color = COLOR_ERROR if maintenance else COLOR_WARNING if not login or battles <= 0 else COLOR_OK
+            color = COLOR_ERROR if maintenance else COLOR_WARNING if login or battles <= 0 else COLOR_OK
 
             embed = discord.Embed(title='Axie Infinity Game Server Status', color=color)
             embed.add_field(name='Maintenance', value=maintenance_msg, inline=False)
