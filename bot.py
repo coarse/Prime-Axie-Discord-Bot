@@ -4,7 +4,11 @@ import json
 import discord
 from discord.ext import commands
 
+DEBUG = os.getenv('DEBUG')
+
 TOKEN = os.getenv('DISCORD_TOKEN')
+if DEBUG:
+    print(TOKEN)
 
 COLOR_OK = 0x21ba45
 COLOR_WARNING = 0xf7ac0a
@@ -48,6 +52,9 @@ async def status(ctx):
 
 @status.error
 async def status_error(ctx, error):
+    if DEBUG:
+        print(error)
+
     embed = discord.Embed(description='The server status checker service is currently unavailable!', color=COLOR_WARNING)
     await ctx.send(embed=embed, delete_after=5)
 
