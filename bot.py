@@ -4,9 +4,11 @@ import json
 import discord
 from discord.ext import commands
 
-DEBUG = os.getenv('DEBUG')
+# DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
-TOKEN = os.getenv('DISCORD_TOKEN')
+# TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = 'ODY2Mzg3NDc3Mjk5ODU1NDAw.YPR0Nw.Y92AFSi-JYlxzT4lQE4EyTR0GjU'
 if DEBUG:
     print(TOKEN)
 
@@ -46,10 +48,10 @@ async def status(ctx):
             # Setup field messages
             maintenance_msg = 'Ongoing maintenance' if maintenance else 'No maintenance'
             login_msg = 'Online' if not login else 'Status unknown'
-            battles_msg = 'Online' if battles > 0 else 'Status unknown'
+            battles_msg = 'Online' if battles > 2 else 'Status unknown'
 
             # Setup embed color
-            color = COLOR_ERROR if maintenance else COLOR_WARNING if login or battles <= 0 else COLOR_OK
+            color = COLOR_ERROR if maintenance else COLOR_WARNING if login or battles <= 2 else COLOR_OK
 
             # Generate embed
             embed = discord.Embed(title='Axie Infinity Game Server Status', color=color)
