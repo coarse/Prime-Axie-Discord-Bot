@@ -49,6 +49,7 @@ async def status(ctx):
             embed.add_field(name='Battles', value=battles_msg, inline=False)
 
             await ctx.send(embed=embed, delete_after=20)
+            await ctx.message.delete()
 
 @status.error
 async def status_error(ctx, error):
