@@ -4,11 +4,9 @@ import json
 import discord
 from discord.ext import commands
 
-# DEBUG = os.getenv('DEBUG')
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
-# TOKEN = os.getenv('DISCORD_TOKEN')
-TOKEN = 'ODY2Mzg3NDc3Mjk5ODU1NDAw.YPR0Nw.Y92AFSi-JYlxzT4lQE4EyTR0GjU'
+TOKEN = os.getenv('DISCORD_TOKEN')
 if DEBUG:
     print(TOKEN)
 
