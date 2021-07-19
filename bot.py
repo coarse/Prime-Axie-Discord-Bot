@@ -30,25 +30,34 @@ async def on_ready():
 async def status(ctx):
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
         url = 'https://axie.zone:3000/server_status'
+
+        # Delete message that triggered the command
+        await ctx.message.delete()
+
+        # Try and fetch data. If this returns an exception, it will call status_error()
         async with session.get(url) as resp:
             data = await resp.json(content_type=None)
 
+            # Extract data from API response
             maintenance = data.get('status_maintenance', None)
             login = data.get('status_login', None)
             battles = data.get('status_battles', None)
 
+            # Setup field messages
             maintenance_msg = 'Ongoing maintenance' if maintenance else 'No maintenance'
             login_msg = 'Online' if not login else 'Status unknown'
             battles_msg = 'Online' if battles > 0 else 'Status unknown'
 
+            # Setup embed color
             color = COLOR_ERROR if maintenance else COLOR_WARNING if login or battles <= 0 else COLOR_OK
 
+            # Generate embed
             embed = discord.Embed(title='Axie Infinity Game Server Status', color=color)
             embed.add_field(name='Maintenance', value=maintenance_msg, inline=False)
             embed.add_field(name='Login', value=login_msg, inline=False)
             embed.add_field(name='Battles', value=battles_msg, inline=False)
 
-            await ctx.message.delete()
+            # Send embed and delete after 20 seconds
             await ctx.send(embed=embed, delete_after=20)
 
 @status.error
